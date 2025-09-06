@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ==================== HEADERS DE SEGURIDAD ==================== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://i.imgur.com https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' https://i.imgur.com data:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self'; frame-src 'none';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <!-- ==================== TÍTULO Y DEPENDENCIAS ==================== -->
     <title>Taekwondo FES Iztacala</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS (versión fija) -->
+    <script src="https://cdn.tailwindcss.com/3.3.5"></script>
+    <!-- Font Awesome (versión fija con integridad SRI) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
         
@@ -189,7 +198,6 @@
                 height: 80px;
             }
             
-            
             .img-1 { top: 10%; left: 38%; }
             .img-2 { top: 7%; right: 5%;}
             .img-3 { bottom: 30%; left: 18%; }
@@ -201,39 +209,39 @@
     </style>
 </head>
 <body>
-    <!-- Imágenes flotantes -->
+    <!-- ==================== IMÁGENES FLOTANTES ==================== -->
     <div class="floating-images">
         <div class="floating-image img-1">
-            <img src="https://i.imgur.com/d0erNE7.jpeg" alt="">
+            <img src="https://i.imgur.com/d0erNE7.jpeg" alt="Lealtad">
             <p class="image-label">Lealtad</p>
         </div>
         <div class="floating-image img-2">
-            <img src="https://i.imgur.com/yLqGkdI.jpeg" alt="">
+            <img src="https://i.imgur.com/yLqGkdI.jpeg" alt="Confianza">
             <p class="image-label">Confianza</p>
         </div>
         <div class="floating-image img-3">
-            <img src="https://i.imgur.com/Mbpix6V.jpeg" alt="">
+            <img src="https://i.imgur.com/Mbpix6V.jpeg" alt="Valor">
             <p class="image-label">Valor</p> 
         </div>
         <div class="floating-image img-4">
-            <img src="https://i.imgur.com/lNxR3MG.jpeg" alt="">
+            <img src="https://i.imgur.com/lNxR3MG.jpeg" alt="Disciplina">
             <p class="image-label">Disciplina</p> 
         </div>
         <div class="floating-image img-5">
-            <img src="https://i.imgur.com/1zfsch9.jpeg" alt="">
+            <img src="https://i.imgur.com/1zfsch9.jpeg" alt="Actitud">
             <p class="image-label">Actitud</p>
         </div>
         <div class="floating-image img-6">
-            <img src="https://i.imgur.com/A3ZvUc6.jpeg" alt="">
+            <img src="https://i.imgur.com/A3ZvUc6.jpeg" alt="Perseverancia">
             <p class="image-label">Perseverancia</p>
         </div>
         <div class="floating-image img-7">
-            <img src="https://i.imgur.com/yepz46O.png" alt=""
+            <img src="https://i.imgur.com/yepz46O.png" alt="Salud">
             <p class="image-label">Salud</p> 
         </div>
     </div>
 
-    <!-- Contenido principal -->
+    <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
     <div class="hero-container">
         <div class="hero-bg"></div>
         <div class="hero-content">
@@ -242,18 +250,25 @@
             </h1>
             
             <div class="social-links">
-                <a href="https://www.instagram.com/fes_iztacala_taekwondo/" class="social-link instagram" target="_blank">
+                <a href="https://www.instagram.com/fes_iztacala_taekwondo/" class="social-link instagram" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://www.tiktok.com/@gonzalo_tkd" class="social-link tiktok" target="_blank">
+                <a href="https://www.tiktok.com/@gonzalo_tkd" class="social-link tiktok" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-tiktok"></i>
                 </a>
             </div>
         </div>
     </div>
 
+    <!-- ==================== SCRIPTS CON SEGURIDAD ==================== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
     <script>
-        // Efecto de parallax suave para el fondo
+        // Sanitización de contenido dinámico (anti-XSS)
+        document.querySelectorAll('.floating-image img').forEach(img => {
+            img.alt = DOMPurify.sanitize(img.alt);
+        });
+
+        // Efecto de parallax seguro
         document.addEventListener('mousemove', function(e) {
             const heroBg = document.querySelector('.hero-bg');
             const x = (window.innerWidth - e.pageX * 2) / 100;
@@ -261,7 +276,7 @@
             heroBg.style.transform = `translateX(${x}px) translateY(${y}px)`;
         });
 
-        // Efecto de tipowriter para el título
+        // TipoWriter seguro (sin innerHTML)
         function typeWriter() {
             const title = document.querySelector('.main-title');
             const text = title.textContent;
@@ -277,9 +292,11 @@
             }
             type();
         }
-
-        // Iniciar cuando la página cargue
         window.addEventListener('load', typeWriter);
+
+        // CSRF Token (para futuros formularios)
+        const csrfToken = crypto.getRandomValues(new Uint32Array(1))[0].toString(16);
+        sessionStorage.setItem('csrf_token', csrfToken);
     </script>
 </body>
 </html>
